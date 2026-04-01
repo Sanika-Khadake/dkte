@@ -1,0 +1,74 @@
+Angular
+practical no 6 
+	Title: 
+                Demonstrate page routing in angular 
+	Objectives:  
+		1. To demonstrate routing in angular to show required component according to the requirement.
+
+steps :
+ 1) new my-first-app
+    cd my-first-app
+-----------------------------------
+ 2) ng generate component first
+    ng generate component second
+-----------------------------------
+to open in vs code (code .)
+3)
+  ( app.routes.ts )
+
+   import { Routes } from '@angular/router';
+   import { First } from './first/first';
+   import { Second } from './second/second';
+
+  export const routes: Routes = [
+    { path: 'first-component', component: First },
+    { path: 'second-component', component: Second }
+  ];
+
+-------------------------------------------------------
+4) (app.config.ts)
+import { ApplicationConfig } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideRouter(routes)]
+};
+
+--------------------------------------------------------
+5) (app.html)
+<h1>Angular Router App</h1>
+
+<nav>
+  <ul>
+    <li><a routerLink="/first-component">First Component</a></li>
+    <li><a routerLink="/second-component">Second Component</a></li>
+  </ul>
+</nav>
+
+<router-outlet></router-outlet>
+
+----------------------------------------------------------------------
+6) (app.ts)
+import { Component } from '@angular/core';
+import { RouterOutlet, RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, RouterLink],
+  templateUrl: './app.html',
+  styleUrl: './app.css'
+})
+export class App {}
+
+--------------------------------------------------------------------------
+7) (first.html)
+   <h2>This is First Component</h2>
+   (second.html)
+   <h2>This is Second Component</h2>
+
+//Run the code
+ng serve 
+--------------------------------------------------------------------
+ 
